@@ -8,9 +8,9 @@
 
 package mag.grig.entity;
 
-import mag.grig.classes.interfaces.CarObject;
 import jakarta.persistence.*;
 import lombok.Data;
+import mag.grig.classes.interfaces.CarObject;
 
 
 @Entity

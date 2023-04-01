@@ -1,7 +1,7 @@
 package mag.grig.entity.security;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Data;
 
 import java.util.List;
 
