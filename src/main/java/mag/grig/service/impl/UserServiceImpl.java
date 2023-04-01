@@ -1,5 +1,7 @@
 package mag.grig.service.impl;
 
+import jakarta.validation.constraints.NotEmpty;
+import mag.grig.dto.RoleDto;
 import mag.grig.dto.UserDto;
 import mag.grig.entity.security.Role;
 import mag.grig.entity.security.User;
@@ -29,7 +31,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void saveUser(UserDto userDto) {
+    public void saveUser(UserDto userDto, RoleDto roleDto) {
         User user = new User();
         user.setName(userDto.getFirstName() + " " + userDto.getLastName());
         user.setEmail(userDto.getEmail());
@@ -37,7 +39,9 @@ public class UserServiceImpl implements UserService {
         //encrypt the password once we integrate spring security
         //user.setPassword(userDto.getPassword());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
-        Role role = roleRepository.findByRole("ROLE_ADMIN");
+        Role role = roleRepository.findByRole("ROLE_USER");
+//        Role role = new Role();
+//        role.setRole(roleDto.getRole());
         if(role == null){
             role = checkRoleExist();
         }

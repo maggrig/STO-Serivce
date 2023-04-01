@@ -2,6 +2,7 @@ package mag.grig.controller;
 
 import mag.grig.dto.RoleDto;
 import mag.grig.dto.UserDto;
+import mag.grig.entity.security.Role;
 import mag.grig.entity.security.User;
 import mag.grig.service.RoleService;
 import mag.grig.service.UserService;
@@ -21,17 +22,19 @@ public class AuthController {
     private UserService userService;
     private RoleService roleService;
 
-    public AuthController(UserService userService) {
+    public AuthController(UserService userService, RoleService roleService) {
         this.userService = userService;
+        this.roleService = roleService;
     }
+
 
     @GetMapping("index")
     public String home(){
-        return "index";
+        return "login";
     }
     @GetMapping("/")
     public String index(){
-        return "index";
+        return "login";
     }
 
     @GetMapping("/login")
@@ -43,18 +46,22 @@ public class AuthController {
     @GetMapping("register")
     public String showRegistrationForm(Model model){
         UserDto user = new UserDto();
+//        RoleDto role = new RoleDto();
+        List<Role> role=roleService.findAllRoles();
+        model.addAttribute("role", role);
         model.addAttribute("user", user);
+
         return "register";
     }
 
     // handler method to handle register user form submit request
     @PostMapping("/register/save")
     public String registration(@Valid @ModelAttribute("user") UserDto user,
-                               @Valid @ModelAttribute("roles") RoleDto roles,
+                               @Valid @ModelAttribute("role") RoleDto role,
                                BindingResult result,
                                Model model){
         User existing = userService.findByEmail(user.getEmail());
-        List<RoleDto> rolesAll=roleService.findAllRoles();
+//        List<Role> rolesAll=roleService.findAllRoles();
     if (existing != null) {
             result.rejectValue("email", null, "There is already an account registered with that email");
         }
@@ -62,7 +69,7 @@ public class AuthController {
             model.addAttribute("user", user);
             return "register";
         }
-        userService.saveUser(user);
+        userService.saveUser(user,role);
         return "redirect:/register?success";
     }
 
