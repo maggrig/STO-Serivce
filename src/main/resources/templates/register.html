@@ -85,17 +85,6 @@
                         </p>
                     </div>
                     <div class="form-group mb-3">
-                        <select class="form-control" multiple size="3"
-                                th:object="${role}"
-                                id="role"
-                                name="role"/>
-                        <option value="">select Role</option>
-                        <option th:each="_role : ${role}"
-                                th:value="${_role.getRole()}"
-                                th:text="${_role.getRole()}">
-                        </option>
-                        </select>
-
                         <button class="btn btn-primary" type="submit">Register</button>
                         <span>Already registered? <a href="/" th:href="@{/login}">Login
                              here</a></span>
