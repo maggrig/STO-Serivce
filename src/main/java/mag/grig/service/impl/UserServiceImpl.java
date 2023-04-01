@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void saveUser(UserDto userDto, RoleDto roleDto) {
+    public void saveUser(UserDto userDto) {
         User user = new User();
         user.setName(userDto.getFirstName() + " " + userDto.getLastName());
         user.setEmail(userDto.getEmail());
@@ -40,8 +40,6 @@ public class UserServiceImpl implements UserService {
         //user.setPassword(userDto.getPassword());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         Role role = roleRepository.findByRole("ROLE_USER");
-//        Role role = new Role();
-//        role.setRole(roleDto.getRole());
         if(role == null){
             role = checkRoleExist();
         }
