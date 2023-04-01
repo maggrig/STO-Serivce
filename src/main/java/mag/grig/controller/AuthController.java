@@ -1,12 +1,12 @@
 package mag.grig.controller;
 
+import jakarta.validation.Valid;
 import mag.grig.dto.RoleDto;
 import mag.grig.dto.UserDto;
 import mag.grig.entity.security.Role;
 import mag.grig.entity.security.User;
 import mag.grig.service.RoleService;
 import mag.grig.service.UserService;
-import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,8 +19,8 @@ import java.util.List;
 @Controller
 public class AuthController {
 
-    private UserService userService;
-    private RoleService roleService;
+    private final UserService userService;
+    private final RoleService roleService;
 
     public AuthController(UserService userService, RoleService roleService) {
         this.userService = userService;
@@ -29,7 +29,7 @@ public class AuthController {
 
 
     @GetMapping("index")
-    public String home(){
+    public String home() {
         return "login";
     }
     @GetMapping("/")
@@ -46,7 +46,6 @@ public class AuthController {
     @GetMapping("register")
     public String showRegistrationForm(Model model){
         UserDto user = new UserDto();
-//        RoleDto role = new RoleDto();
         List<Role> role=roleService.findAllRoles();
         model.addAttribute("role", role);
         model.addAttribute("user", user);
@@ -61,7 +60,6 @@ public class AuthController {
                                BindingResult result,
                                Model model){
         User existing = userService.findByEmail(user.getEmail());
-//        List<Role> rolesAll=roleService.findAllRoles();
     if (existing != null) {
             result.rejectValue("email", null, "There is already an account registered with that email");
         }
@@ -72,7 +70,6 @@ public class AuthController {
         userService.saveUser(user);
         return "redirect:/register?success";
     }
-
     @GetMapping("/users")
     public String listRegisteredUsers(Model model){
         List<UserDto> users = userService.findAllUsers();
