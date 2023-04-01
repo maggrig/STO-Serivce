@@ -4,6 +4,8 @@ import jakarta.validation.Valid;
 import mag.grig.dto.UserDto;
 import mag.grig.entity.security.User;
 import mag.grig.service.UserService;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,24 +24,27 @@ public final class AuthController {
         this.userService = userService;
     }
 
+    @Contract(pure = true)
     @GetMapping("index")
-    public String home() {
+    public @NotNull String home() {
         return "login";
     }
 
+    @Contract(pure = true)
     @GetMapping("/")
-    public String index() {
+    public @NotNull String index() {
         return "login";
     }
 
+    @Contract(pure = true)
     @GetMapping("/login")
-    public String loginForm() {
+    public @NotNull String loginForm() {
         return "login";
     }
 
     // handler method to handle user registration request
     @GetMapping("register")
-    public String showRegistrationForm(final Model model) {
+    public @NotNull String showRegistrationForm(final @NotNull Model model) {
         UserDto user = new UserDto();
         model.addAttribute("user", user);
 
@@ -48,9 +53,9 @@ public final class AuthController {
 
     // handler method to handle register user form submit request
     @PostMapping("/register/save")
-    public String registration(final @Valid @ModelAttribute("user") UserDto user,
-                               final BindingResult result,
-                               final Model model) {
+    public @NotNull String registration(final @Valid @ModelAttribute("user") @NotNull UserDto user,
+                                        final BindingResult result,
+                                        final Model model) {
         User existing = userService.findByEmail(user.getEmail());
         if (existing != null) {
             result.rejectValue("email", null, "There is already an account registered with that email");
@@ -64,7 +69,7 @@ public final class AuthController {
     }
 
     @GetMapping("/users")
-    public String listRegisteredUsers(final Model model) {
+    public @NotNull String listRegisteredUsers(final @NotNull Model model) {
         List<UserDto> users = userService.findAllUsers();
         model.addAttribute("users", users);
         return "users";
