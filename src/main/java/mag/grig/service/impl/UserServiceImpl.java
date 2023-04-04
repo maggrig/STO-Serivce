@@ -9,6 +9,7 @@ import mag.grig.service.UserService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -50,6 +51,7 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByEmail(email);
     }
 
+
     @Override
     public List<UserDto> findAllUsers() {
         List<User> users = userRepository.findAll();
@@ -57,12 +59,17 @@ public class UserServiceImpl implements UserService {
                 .collect(Collectors.toList());
     }
 
-    private UserDto convertEntityToDto(User user){
+    private UserDto convertEntityToDto(User user) {
         UserDto userDto = new UserDto();
+        List<Role> roleList = new ArrayList<Role>();
+        roleList = roleRepository.findAll();
         String[] name = user.getName().split(" ");
+        userDto.setId(user.getId());
         userDto.setFirstName(name[0]);
         userDto.setLastName(name[1]);
         userDto.setEmail(user.getEmail());
+        userDto.setRole(user.getRoles().get(0).getRole());
+
         return userDto;
     }
 

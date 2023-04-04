@@ -1,14 +1,20 @@
 package mag.grig.entity.security;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Table(name="users")
+@Table(name = "users")
 public class User
 {
     private static final long serialVersionUID = 1L;
