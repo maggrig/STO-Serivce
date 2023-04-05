@@ -9,7 +9,6 @@ import mag.grig.service.UserService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -38,7 +37,7 @@ public class UserServiceImpl implements UserService {
         //encrypt the password once we integrate spring security
         //user.setPassword(userDto.getPassword());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
-        Role role = roleRepository.findByRole("ROLE_USER");
+        Role role = roleRepository.findByRole("ROLE_ADMIN");
         if(role == null){
             role = checkRoleExist();
         }
@@ -61,8 +60,6 @@ public class UserServiceImpl implements UserService {
 
     private UserDto convertEntityToDto(User user) {
         UserDto userDto = new UserDto();
-        List<Role> roleList = new ArrayList<Role>();
-        roleList = roleRepository.findAll();
         String[] name = user.getName().split(" ");
         userDto.setId(user.getId());
         userDto.setFirstName(name[0]);

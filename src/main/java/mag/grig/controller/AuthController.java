@@ -13,10 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import java.util.List;
 
 @Controller
 public final class AuthController {
@@ -73,16 +70,4 @@ public final class AuthController {
         return "redirect:/register?success";
     }
 
-    @GetMapping("/users")
-    public @NotNull String listRegisteredUsers(final @NotNull Model model) {
-        List<UserDto> users = userService.findAllUsers();
-        model.addAttribute("users", users);
-        return "users";
-    }
-
-    @GetMapping("/users/{userId}/delete")
-    public String deleteUser(@PathVariable Long userId) {
-        userRepository.deleteById(Long.valueOf(userId));
-        return "redirect:/users";
-    }
 }
