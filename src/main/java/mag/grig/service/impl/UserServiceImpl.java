@@ -1,15 +1,17 @@
 package mag.grig.service.impl;
 
+import jakarta.validation.Valid;
+import mag.grig.dto.RoleDto;
 import mag.grig.dto.UserDto;
 import mag.grig.entity.security.Role;
 import mag.grig.entity.security.User;
 import mag.grig.repository.RoleRepository;
 import mag.grig.repository.UserRepository;
 import mag.grig.service.UserService;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,7 +31,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void saveUser(UserDto userDto) {
+    public void saveUser(UserDto userDto, List<RoleDto> roleDto) {
         User user = new User();
         user.setName(userDto.getFirstName() + " " + userDto.getLastName());
         user.setEmail(userDto.getEmail());
@@ -37,11 +39,12 @@ public class UserServiceImpl implements UserService {
         //encrypt the password once we integrate spring security
         //user.setPassword(userDto.getPassword());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
-        Role role = roleRepository.findByRole("ROLE_ADMIN");
-        if(role == null){
-            role = checkRoleExist();
-        }
-        user.setRoles(Arrays.asList(role));
+//        Role role = roleRepository.findByRole("ROLE_ADMIN");
+//        if(role == null){
+//            role = checkRoleExist();
+//        }
+
+//        user.setRoles(roleDto);
         userRepository.save(user);
     }
 
@@ -68,6 +71,16 @@ public class UserServiceImpl implements UserService {
         userDto.setRole(user.getRoles().get(0).getRole());
 
         return userDto;
+    }
+
+    private User convertDtoToEntity(@Valid @NotNull UserDto userDto) {
+        User user = new User();
+        userDto.setId(userDto.getId());
+        userDto.setFirstName(userDto.getFirstName());
+        userDto.setLastName(userDto.getLastName());
+        userDto.setEmail(userDto.getEmail());
+        userDto.setRole(userDto.getRole());
+        return user;
     }
 
     private Role checkRoleExist() {

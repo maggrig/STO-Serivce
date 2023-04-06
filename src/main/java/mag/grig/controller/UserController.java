@@ -39,7 +39,6 @@ public class UserController {
     public String deleteUser(@PathVariable Long userId) {
 
         userRoleRepository.deleteById(Long.valueOf(userId));
-//        roleRepository.deleteById(Long.valueOf(userId));
         userRepository.deleteById(Long.valueOf(userId));
         return "redirect:/users";
     }
