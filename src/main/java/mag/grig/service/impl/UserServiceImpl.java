@@ -33,7 +33,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public void saveUser(UserDto userDto, List<RoleDto> roleDto) {
         User user = new User();
-        user.setName(userDto.getFirstName() + " " + userDto.getLastName());
+        user.setFirst_Name(userDto.getFirstName());
+        user.setLast_Name(userDto.getFirstName());
         user.setEmail(userDto.getEmail());
 
         //encrypt the password once we integrate spring security
@@ -63,10 +64,9 @@ public class UserServiceImpl implements UserService {
 
     private UserDto convertEntityToDto(User user) {
         UserDto userDto = new UserDto();
-        String[] name = user.getName().split(" ");
         userDto.setId(user.getId());
-        userDto.setFirstName(name[0]);
-        userDto.setLastName(name[1]);
+        userDto.setFirstName(user.getFirst_Name());
+        userDto.setLastName(user.getLast_Name());
         userDto.setEmail(user.getEmail());
         userDto.setRole(user.getRoles().get(0).getRole());
 

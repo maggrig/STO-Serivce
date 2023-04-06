@@ -12,17 +12,22 @@ import jakarta.persistence.*;
 import lombok.Data;
 import mag.grig.classes.interfaces.CarObject;
 
+import java.util.Date;
+
 
 @Entity
 @Data
 public class Car implements CarObject {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
-    String number = null;
-    String name = null;
+    private String name; // name of car
+    private String number;// number of car
+    private String brand;// brand of car
+    private Date birthday;// birthday of car
+    private Long car_VIN_Id; //VIN of car
 
 
 }

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>mag.grig.entity</OriginalElement>
+  <nodes>
+    <node x="525.0" y="342.0">mag.grig.entity.Post</node>
+    <node x="59.0" y="840.0">mag.grig.entity.Car_VIN</node>
+    <node x="-174.0" y="840.0">mag.grig.entity.AutoParts</node>
+    <node x="292.0" y="342.0">mag.grig.entity.Client</node>
+    <node x="-844.8974654377876" y="237.99999999999994">mag.grig.entity.security.User</node>
+    <node x="-1129.8107255520504" y="709.7854889589905">mag.grig.entity.security.Role</node>
+    <node x="59.0" y="342.0">mag.grig.entity.Car</node>
+    <node x="-1149.6687588131817" y="315.7287066246056">mag.grig.entity.security.UserRole</node>
+    <node x="-174.0" y="342.0">mag.grig.entity.Order</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="mag.grig.entity.security.Role" target="mag.grig.entity.security.User" relationship="TO_MANY">
+      <point x="-100.0" y="-106.0" />
+      <point x="-1124.3107255520504" y="826.25" />
+      <point x="-505.39746543778756" y="826.25" />
+      <point x="166.0" y="260.00000000000006" />
+    </edge>
+    <edge source="mag.grig.entity.security.User" target="mag.grig.entity.security.Role" relationship="TO_MANY">
+      <point x="173.5" y="0.0" />
+      <point x="-1024.3107255520504" y="497.99999999999994" />
+      <point x="0.0" y="-106.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.6716101694915254" showDependencies="true" x="-169.5" y="699.0" />
+  <SelectedNodes>
+    <node>mag.grig.entity.security.UserRole</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
