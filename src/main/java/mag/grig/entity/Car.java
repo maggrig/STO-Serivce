@@ -9,15 +9,24 @@
 package mag.grig.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import mag.grig.classes.interfaces.CarObject;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.Hibernate;
 
 import java.util.Date;
+import java.util.Objects;
 
-
+/**
+ * Машина.
+ */
 @Entity
-@Data
-public class Car implements CarObject {
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
+public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -27,7 +36,18 @@ public class Car implements CarObject {
     private String number;// number of car
     private String brand;// brand of car
     private Date birthday;// birthday of car
-    private Long car_VIN_Id; //VIN of car
+    private Long carVINId; //VIN of car
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Car car = (Car) o;
+        return getId() != null && Objects.equals(getId(), car.getId());
+    }
 
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

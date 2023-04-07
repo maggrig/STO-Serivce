@@ -1,10 +1,22 @@
 package mag.grig.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.Hibernate;
 
+import java.util.Objects;
+
+/**
+ * Запчасти.
+ */
 @Entity
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @Table(name = "Auto_Parts")
 public class AutoParts {
     @Id
@@ -13,7 +25,21 @@ public class AutoParts {
     private Long id;
     private String name;
     private String description;
-    private Long car_VIN_Id;
+    /**
+     * VIN машины
+     */
+    private Long carVINId;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        AutoParts autoParts = (AutoParts) o;
+        return getId() != null && Objects.equals(getId(), autoParts.getId());
+    }
 
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

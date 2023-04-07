@@ -1,13 +1,13 @@
-package mag.grig.service.impl;
+package mag.grig.service.impl.security;
 
 import jakarta.validation.Valid;
-import mag.grig.dto.RoleDto;
-import mag.grig.dto.UserDto;
+import mag.grig.dto.security.RoleDto;
+import mag.grig.dto.security.UserDto;
 import mag.grig.entity.security.Role;
 import mag.grig.entity.security.User;
-import mag.grig.repository.RoleRepository;
-import mag.grig.repository.UserRepository;
-import mag.grig.service.UserService;
+import mag.grig.repository.security.RoleRepository;
+import mag.grig.repository.security.UserRepository;
+import mag.grig.service.security.UserService;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,9 +18,9 @@ import java.util.stream.Collectors;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private UserRepository userRepository;
-    private RoleRepository roleRepository;
-    private PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public UserServiceImpl(UserRepository userRepository,
                            RoleRepository roleRepository,
@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void saveUser(UserDto userDto, List<RoleDto> roleDto) {
+    public void saveUser(UserDto userDto, @NotNull List<RoleDto> roleDto) {
         User user = new User();
         user.setFirst_Name(userDto.getFirstName());
         user.setLast_Name(userDto.getFirstName());
@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserDto> findAllUsers() {
         List<User> users = userRepository.findAll();
-        return users.stream().map((user) -> convertEntityToDto(user))
+        return users.stream().map(this::convertEntityToDto)
                 .collect(Collectors.toList());
     }
 

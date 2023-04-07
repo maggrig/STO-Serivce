@@ -9,13 +9,13 @@
 package mag.grig.classes.interfaces;
 
 
-import mag.grig.classes.enums.ExecutorEnum;
+import mag.grig.classes.enums.PostEnum;
 
 import java.util.Date;
 import java.util.List;
 
 public interface Control {
     String gosNomer = null;
-    List<ExecutorEnum> executors = null;
+    List<PostEnum> executors = null;
     Date dateExecutor = null;
 }

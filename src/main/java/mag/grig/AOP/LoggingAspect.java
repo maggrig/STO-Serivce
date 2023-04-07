@@ -11,19 +11,19 @@ import java.util.stream.Stream;
 @Component
 public class LoggingAspect {
 
-    @Before("execution(* mag.grig.service.UserService.*(..))")
+    @Before("execution(* mag.grig.service.security.UserService.*(..))")
     public void logBeforeUserService(JoinPoint joinPoint) {
         System.out.println("Before method execution: " + joinPoint.getSignature().getName());
         Stream.of(joinPoint.getArgs()).forEach(System.out::println);
     }
 
-    @Before("execution(* mag.grig.service.RoleService.*(..))")
+    @Before("execution(* mag.grig.service.security.RoleService.*(..))")
     public void logBeforeRoleService(JoinPoint joinPoint) {
         System.out.println("Before method execution: " + joinPoint.getSignature().getName());
         Stream.of(joinPoint.getArgs()).forEach(System.out::println);
     }
 
-    @Before("execution(* mag.grig.service.UserRoleService.*(..))")
+    @Before("execution(* mag.grig.service.security.UserRoleService.*(..))")
     public void logBeforeUserRoleService(JoinPoint joinPoint) {
         System.out.println("Before method execution: " + joinPoint.getSignature().getName());
         Stream.of(joinPoint.getArgs()).forEach(System.out::println);

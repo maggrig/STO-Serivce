@@ -1,10 +1,10 @@
 package mag.grig.controller;
 
-import mag.grig.dto.UserDto;
-import mag.grig.repository.RoleRepository;
-import mag.grig.repository.UserRepository;
-import mag.grig.repository.UserRoleRepository;
-import mag.grig.service.UserService;
+import mag.grig.dto.security.UserDto;
+import mag.grig.repository.security.RoleRepository;
+import mag.grig.repository.security.UserRepository;
+import mag.grig.repository.security.UserRoleRepository;
+import mag.grig.service.security.UserService;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

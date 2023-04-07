@@ -1,4 +1,4 @@
-package mag.grig.dto;
+package mag.grig.dto.security;
 
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;

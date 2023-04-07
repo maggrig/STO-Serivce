@@ -1,14 +1,15 @@
 package mag.grig.controller;
 
 import jakarta.validation.Valid;
-import mag.grig.dto.RoleDto;
-import mag.grig.dto.UserDto;
+import mag.grig.dto.security.RoleDto;
+import mag.grig.dto.security.UserDto;
+import mag.grig.entity.Order;
 import mag.grig.entity.security.Role;
 import mag.grig.entity.security.User;
-import mag.grig.repository.RoleRepository;
-import mag.grig.repository.UserRepository;
-import mag.grig.service.RoleService;
-import mag.grig.service.UserService;
+import mag.grig.repository.security.RoleRepository;
+import mag.grig.repository.security.UserRepository;
+import mag.grig.service.security.RoleService;
+import mag.grig.service.security.UserService;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +58,8 @@ public final class AuthController {
     // handler method to handle user registration request
     @GetMapping("register")
     public @NotNull String showRegistrationForm(final @NotNull Model model) {
+        Order order = new Order();  //  order   model       instance
+
         UserDto user = new UserDto();
         List<Role> roles = roleService.findAllRoles();
         model.addAttribute("user", user);

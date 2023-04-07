@@ -1,26 +1,38 @@
 package mag.grig.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Data;
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotEmpty;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.Hibernate;
+
+import java.util.Objects;
 
 
+/**
+ * Клиент.
+ */
 @Entity
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @NotEmpty(message = "Name should not be empty")
+    @NotNull(message = "Name should not be empty")
     @Size(min = 4, max = 30, message = "Name should be between 4 and 30 characters")
     @Column(nullable = false)
     private String name;
 
-    @NotEmpty(message = "Email should not be empty")
+    @NotNull(message = "Email should not be empty")
     @Email
     @Column(name = "email", nullable = false, unique = true)
     private String email;
@@ -28,6 +40,18 @@ public class Client {
     //    @Column(nullable=false)
     private String password;
 
-    private Long car_id;
+    private Long carId;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Client client = (Client) o;
+        return getId() != null && Objects.equals(getId(), client.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

@@ -8,13 +8,13 @@
 
 package mag.grig.classes.interfaces;
 
-import mag.grig.classes.enums.ExecutorEnum;
+import mag.grig.classes.enums.PostEnum;
 
 import java.util.List;
 
 public interface CarObject {
     String number = null;
     String name = null;
-    List<ExecutorEnum> executors = null;
+    List<PostEnum> executors = null;
 
 }

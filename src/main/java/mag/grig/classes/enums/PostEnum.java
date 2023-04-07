@@ -8,27 +8,30 @@
 
 package mag.grig.classes.enums;
 
-/**
- *
- */
-public enum ControlEnum {
-    SUPERVISOR(0), //Супервайзер
-    ACCEPTOR(1),//Приёмщик
-    SHIFTSUPERVISOR(2),//Начальник смены
-    CUSTOMER(3),//Заказчик (опция)
-    EXECUTOR(4);//ИСПОЛНИТЕЛЬ РАБОТ(ИР)
+public enum PostEnum {
+    MECHANIC(0),//Механик
+    ELECTRIC(1),//Электрик
+    BREAKDOWN(2),// Развал
+    CARWASH(3); //Мойка
 
     private int value;
+
+    PostEnum(int value) {
+        this.value = value;
+    }
+
+    @Override
+    public String toString() {
+        return "PostEnum{" +
+                "value=" + value +
+                '}';
+    }
 
     public int getValue() {
         return value;
     }
 
     public void setValue(int value) {
-        this.value = value;
-    }
-
-    ControlEnum(int value) {
         this.value = value;
     }
 }
