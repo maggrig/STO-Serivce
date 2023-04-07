@@ -25,6 +25,10 @@ public class AutoParts {
     private Long id;
     private String name;
     private String description;
+    @ManyToOne
+    @JoinColumn(name = "car_id")
+    private Car car; //ссылка на car (entity/Car) (многие к одному)
+
     /**
      * VIN машины
      */

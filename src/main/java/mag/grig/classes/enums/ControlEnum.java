@@ -24,10 +24,6 @@ public enum ControlEnum {
         return value;
     }
 
-    public void setValue(int value) {
-        this.value = value;
-    }
-
     ControlEnum(int value) {
         this.value = value;
     }
