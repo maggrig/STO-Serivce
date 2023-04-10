@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New Order</title>
+</head>
+<body>
+<h1>Новый заказ</h1>
+<form method="post" th:action="@{/orders}">
+    <table>
+        <tr>
+            <td><label for="car">Car:</label></td>
+            <td>
+                <select id="car" name="car">
+                    <option value="">--Выберете значение--</option>
+                    <option th:each="car : ${cars}"
+                            th:text="${car.brand} + ' ' + ${car.name}"
+                            th:value="${car.id}"></option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td><label for="post">Post:</label></td>
+            <td>
+                <select id="post" name="post">
+                    <option value="">--Выберете значение--</option>
+                    <option th:each="post : ${posts}"
+                            th:text="${post.name}"
+                            th:value="${post.id}"></option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td><label for="client">Client:</label></td>
+            <td>
+                <select id="client" name="client">
+                    <option value="">--Выберете значение--</option>
+                    <option th:each="client : ${clients}"
+                            th:text="${client.name}"
+                            th:value="${client.id}"></option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td><label for="acceptor">Acceptor:</label></td>
+            <td>
+                <select id="acceptor" name="acceptor">
+                    <option value="">--Выберете значение--</option>
+                    <option th:each="user : ${users}"
+                            th:text="${user.first_Name}"
+                            th:value="${user.id}"></option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td><label for="executor">Executor:</label></td>
+            <td>
+                <select id="executor" name="executor">
+                    <option value="">--Выберете значение--</option>
+                    <option th:each="user : ${users}"
+                            th:text="${user.last_Name}"
+                            th:value="${user.id}"></option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td><label for="startDate">Start date:</label></td>
+            <td><input id="startDate" name="startDate" type="datetime-local"/></td>
+        </tr>
+        <tr>
+            <td><label for="endDate">End date:</label></td>
+            <td><input id="endDate" name="endDate" type="datetime-local"/></td>
+        </tr>
+        <tr>
+            <td><label for="finished">Finished:</label></td>
+            <td><input id="finished" name="finished" type="checkbox"/></td>
+        </tr>
+        <tr>
+            <td><label for="warning">Warning:</label></td>
+            <td><input id="warning" name="warning" type="checkbox"/></td>
+        </tr>
+        <tr>
+            <td><label for="error">Error:</label></td>
+            <td><input id="error" name="error" type="checkbox"/></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button type="submit">Create Order</button>
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

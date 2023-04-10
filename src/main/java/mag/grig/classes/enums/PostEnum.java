@@ -14,7 +14,7 @@ public enum PostEnum {
     BREAKDOWN(2),// Развал
     CARWASH(3); //Мойка
 
-    private int value;
+    private final int value;
 
     PostEnum(int value) {
         this.value = value;

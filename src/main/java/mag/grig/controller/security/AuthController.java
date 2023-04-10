@@ -1,9 +1,8 @@
-package mag.grig.controller;
+package mag.grig.controller.security;
 
 import jakarta.validation.Valid;
 import mag.grig.dto.security.RoleDto;
 import mag.grig.dto.security.UserDto;
-import mag.grig.entity.Order;
 import mag.grig.entity.security.Role;
 import mag.grig.entity.security.User;
 import mag.grig.repository.security.RoleRepository;
@@ -20,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -40,7 +40,7 @@ public final class AuthController {
     @Contract(pure = true)
     @GetMapping("index")
     public @NotNull String home() {
-        return "login";
+        return "index_new";
     }
 
     @Contract(pure = true)
@@ -58,8 +58,6 @@ public final class AuthController {
     // handler method to handle user registration request
     @GetMapping("register")
     public @NotNull String showRegistrationForm(final @NotNull Model model) {
-        Order order = new Order();  //  order   model       instance
-
         UserDto user = new UserDto();
         List<Role> roles = roleService.findAllRoles();
         model.addAttribute("user", user);
@@ -70,26 +68,24 @@ public final class AuthController {
 
     // handler method to handle register user form submit request
     @PostMapping("/register/save")
-    public @NotNull String registration(final @Valid @ModelAttribute("user") @NotNull UserDto user,
-                                        final @Valid @ModelAttribute("role") @NotNull RoleDto role,
+    public @NotNull String registration(final @Valid @ModelAttribute("user") @NotNull UserDto userDto,
+                                        final @Valid @ModelAttribute("role") @NotNull RoleDto roleDto,
                                         final BindingResult result,
                                         final Model model) {
 
-        User existing = userService.findByEmail(user.getEmail());
-
-//        List<Role> roles = (List<Role>) role.getRole().split(",");
-//        Arrays.stream(roles).map(role);
-//       map(role)-> UserServiceImpl.convertDtoToEntity(role)).collect(Collectors.toList());
-//        RoleDto roleDto= Stream.of(role).collect(Collectors.toList());
+        User existing = userService.findByEmail(userDto.getEmail());
+        String[] roles = roleDto.getRole().split(",");
+        String role = Arrays.asList(roleDto).get(0).getRole();
         if (existing != null) {
             result.rejectValue("email", null, "There is already an account registered with that email");
         }
         if (result.hasErrors()) {
-            model.addAttribute("user", user);
+            model.addAttribute("user", userDto);
+            model.addAttribute("roles", roleDto);
+            model.addAttribute("errorMessage", "Registration failed. Please check the form for errors.");
             return "register";
         }
-//        userService.saveUser(user, role);
+        userService.saveUser(userDto, role);
         return "redirect:/register?success";
     }
-
 }

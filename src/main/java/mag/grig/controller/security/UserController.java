@@ -1,4 +1,4 @@
-package mag.grig.controller;
+package mag.grig.controller.security;
 
 import mag.grig.dto.security.UserDto;
 import mag.grig.repository.security.RoleRepository;

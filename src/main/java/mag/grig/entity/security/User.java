@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import mag.grig.entity.Post;
 import org.hibernate.Hibernate;
 
 import java.util.ArrayList;
@@ -17,8 +18,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 @Entity
 @Table(name = "users")
-public class User
-{
+public class User {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -27,10 +27,16 @@ public class User
 
     //    @Column(nullable=false)
     private String first_Name;
+    @Column(nullable = false)
+    private String last_Name;
+
     private String name;
 
-    //    @Column(nullable=false)
-    private String last_Name;
+    private String phone;
+
+    @ManyToOne
+    @JoinColumn(name = "post_id")
+    private Post post;
 
     @Column(nullable = false, unique = true)
     private String email;
@@ -44,7 +50,7 @@ public class User
     @Column(nullable = false)
     private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(
             name = "users_roles",
             joinColumns = {@JoinColumn(name = "USER_ID", referencedColumnName = "ID")},

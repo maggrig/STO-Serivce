@@ -1,7 +1,6 @@
 package mag.grig.service.impl.security;
 
 import jakarta.validation.Valid;
-import mag.grig.dto.security.RoleDto;
 import mag.grig.dto.security.UserDto;
 import mag.grig.entity.security.Role;
 import mag.grig.entity.security.User;
@@ -12,6 +11,7 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,21 +31,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void saveUser(UserDto userDto, @NotNull List<RoleDto> roleDto) {
+    public void saveUser(UserDto userDto, @NotNull String roleDto) {
         User user = new User();
         user.setFirst_Name(userDto.getFirstName());
-        user.setLast_Name(userDto.getFirstName());
+        user.setLast_Name(userDto.getLastName());
         user.setEmail(userDto.getEmail());
+
+        Role role = new Role();
+        role.setRole(roleDto);
+//role.setRole(roleDto.stream().map(Object::toString)
+//                .collect(Collectors.joining(",")));
 
         //encrypt the password once we integrate spring security
         //user.setPassword(userDto.getPassword());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
-//        Role role = roleRepository.findByRole("ROLE_ADMIN");
+        role = roleRepository.findByRole(role.getRole());
 //        if(role == null){
 //            role = checkRoleExist();
 //        }
 
-//        user.setRoles(roleDto);
+        user.setRoles(Arrays.asList(role));
         userRepository.save(user);
     }
 
@@ -68,7 +73,7 @@ public class UserServiceImpl implements UserService {
         userDto.setFirstName(user.getFirst_Name());
         userDto.setLastName(user.getLast_Name());
         userDto.setEmail(user.getEmail());
-        userDto.setRole(user.getRoles().get(0).getRole());
+        userDto.setRole(String.valueOf(user.getRoles()));
 
         return userDto;
     }

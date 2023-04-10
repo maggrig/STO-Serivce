@@ -5,9 +5,12 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import mag.grig.entity.security.User;
 import org.hibernate.Hibernate;
 
+import java.util.LinkedHashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * Посты, всмысле участки работы
@@ -25,6 +28,10 @@ public class Post {
     private Long userId;//
     private String name;
     private boolean enabled;
+
+    @OneToMany(cascade = CascadeType.MERGE, orphanRemoval = true)
+    @JoinColumn(name = "post_id")
+    private Set<User> users = new LinkedHashSet<>();
 
     @Override
     public boolean equals(Object o) {

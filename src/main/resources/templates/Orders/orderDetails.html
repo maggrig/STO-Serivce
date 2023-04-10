@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Информация заказа</title>
+</head>
+<body>
+<h1>Order Details</h1>
+<table>
+    <tr>
+        <th>Order ID</th>
+        <th>Car</th>
+        <th>Post</th>
+        <th>Client</th>
+        <th>Acceptor</th>
+        <th>Executor</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Status</th>
+    </tr>
+    <tr th:each="order : ${orders}">
+        <td th:text="${order.id}"></td>
+        <td th:text="${order.car.brand + ' ' + order.car.model}"></td>
+        <td th:text="${order.post.name}"></td>
+        <td th:text="${order.client.name}"></td>
+        <td th:text="${order.acceptor.username}"></td>
+        <td th:text="${order.executor.username}"></td>
+        <td th:text="${order.startDate}"></td>
+        <td th:text="${order.endDate}"></td>
+        <td>
+            <span th:if="${order.error}">Error</span>
+            <span th:if="${order.warning}">Warning</span>
+            <span th:if="${order.finished}">Finished</span>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

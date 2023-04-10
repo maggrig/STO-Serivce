@@ -46,6 +46,11 @@ public class Order {
     @Temporal(TemporalType.DATE)
     private Date endDate;
 
+    private boolean finished;
+    private boolean warning;
+    private boolean error;
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

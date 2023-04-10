@@ -1,4 +1,4 @@
-package mag.grig.controller;
+package mag.grig.controller.error;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;

@@ -13,7 +13,7 @@ public enum StatusEnum {
     WAIT(1), // в ожидании
     COORDINATION(2), // в согласование
     PAUSE(2); // пауза
-    private  int value;
+    private final int value;
 
     StatusEnum(int value) {
         this.value = value;

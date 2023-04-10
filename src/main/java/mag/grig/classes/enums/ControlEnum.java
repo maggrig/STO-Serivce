@@ -18,7 +18,7 @@ public enum ControlEnum {
     CUSTOMER(3),//Заказчик (опция)
     EXECUTOR(4);//ИСПОЛНИТЕЛЬ РАБОТ(ИР)
 
-    private int value;
+    private final int value;
 
     public int getValue() {
         return value;
