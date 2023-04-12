@@ -9,7 +9,7 @@ import java.util.Date;
  * A DTO for the {@link mag.grig.entity.AutoParts} entity
  */
 @Data
-public class AutoPartsDto implements Serializable {
+public class AutoPartsDTO implements Serializable {
     private static final long serialVersionUID = -4673831996188890822L;
     private final Long id;
     private final String name;

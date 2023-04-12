@@ -1,0 +1,24 @@
+.my-table {
+    border: aqua;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    border: aqua;
+    text-align: left;
+    padding: 8px;
+}
+
+th {
+    background-color: #008CBA;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #952929;
+}
+
+tr:hover {
+    background-color: #e03e3e;
+}

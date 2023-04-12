@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+  <link href="styles.css" rel="stylesheet">
   <meta charset="UTF-8">
   <title>Orders</title>
 </head>
 <body>
 <h1>Список заказов</h1>
-<table>
+<table class="my-table">
   <thead>
   <tr>
     <th>ID</th>
@@ -23,11 +24,11 @@
   <tbody>
   <tr th:each="order : ${orders}">
     <td th:text="${order.id}"></td>
-    <td th:text="${order.car.brand} + ' ' + ${order.car.model}"></td>
-    <td th:text="${order.post.name}"></td>
-    <td th:text="${order.client.name}"></td>
-    <td th:text="${order.acceptor.username}"></td>
-    <td th:text="${order.executor.username}"></td>
+    <td th:text="${order.getCar().name} "></td>
+    <td th:text="${order.getPost().name}"></td>
+    <td th:text="${order.getClient().name}"></td>
+    <td th:text="${order.getAcceptor().last_Name}"></td>
+    <td th:text="${order.getExecutor().last_Name}"></td>
     <td th:text="${order.startDate}"></td>
     <td th:text="${order.endDate}"></td>
     <td>

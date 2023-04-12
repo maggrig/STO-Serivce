@@ -31,6 +31,7 @@ public class Post {
 
     @OneToMany(cascade = CascadeType.MERGE, orphanRemoval = true)
     @JoinColumn(name = "post_id")
+    @ToString.Exclude
     private Set<User> users = new LinkedHashSet<>();
 
     @Override

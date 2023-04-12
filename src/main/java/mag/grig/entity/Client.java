@@ -10,6 +10,7 @@ import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
 
+import java.util.List;
 import java.util.Objects;
 
 
@@ -37,10 +38,11 @@ public class Client {
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    //    @Column(nullable=false)
     private String password;
-
-    private Long carId;
+    @ToString.Exclude
+    @OneToMany(cascade = CascadeType.MERGE, orphanRemoval = true)
+    @JoinColumn(name = "car_id")
+    private List<Car> cars;
 
     @Override
     public boolean equals(Object o) {

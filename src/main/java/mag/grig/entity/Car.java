@@ -38,6 +38,11 @@ public class Car {
     private Date birthday;// birthday of car
     private Long carVINId; //VIN of car
 
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "client_id")
+    @ToString.Exclude
+    private Client client;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

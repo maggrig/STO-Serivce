@@ -1,6 +1,6 @@
 package mag.grig.controller.security;
 
-import mag.grig.dto.security.UserDto;
+import mag.grig.dto.security.UserDTO;
 import mag.grig.repository.security.RoleRepository;
 import mag.grig.repository.security.UserRepository;
 import mag.grig.repository.security.UserRoleRepository;
@@ -30,7 +30,7 @@ public class UserController {
 
     @GetMapping("/users")
     public @NotNull String listRegisteredUsers(final @NotNull Model model) {
-        List<UserDto> users = userService.findAllUsers();
+        List<UserDTO> users = userService.findAllUsers();
         model.addAttribute("users", users);
         return "users";
     }

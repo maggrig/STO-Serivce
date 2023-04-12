@@ -1,8 +1,8 @@
 package mag.grig.controller.security;
 
 import jakarta.validation.Valid;
-import mag.grig.dto.security.RoleDto;
-import mag.grig.dto.security.UserDto;
+import mag.grig.dto.security.RoleDTO;
+import mag.grig.dto.security.UserDTO;
 import mag.grig.entity.security.Role;
 import mag.grig.entity.security.User;
 import mag.grig.repository.security.RoleRepository;
@@ -58,7 +58,7 @@ public final class AuthController {
     // handler method to handle user registration request
     @GetMapping("register")
     public @NotNull String showRegistrationForm(final @NotNull Model model) {
-        UserDto user = new UserDto();
+        UserDTO user = new UserDTO();
         List<Role> roles = roleService.findAllRoles();
         model.addAttribute("user", user);
         model.addAttribute("roles", roles);
@@ -68,8 +68,8 @@ public final class AuthController {
 
     // handler method to handle register user form submit request
     @PostMapping("/register/save")
-    public @NotNull String registration(final @Valid @ModelAttribute("user") @NotNull UserDto userDto,
-                                        final @Valid @ModelAttribute("role") @NotNull RoleDto roleDto,
+    public @NotNull String registration(final @Valid @ModelAttribute("user") @NotNull UserDTO userDto,
+                                        final @Valid @ModelAttribute("role") @NotNull RoleDTO roleDto,
                                         final BindingResult result,
                                         final Model model) {
 

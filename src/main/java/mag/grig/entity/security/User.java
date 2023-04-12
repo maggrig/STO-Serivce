@@ -36,6 +36,7 @@ public class User {
 
     @ManyToOne
     @JoinColumn(name = "post_id")
+    @ToString.Exclude
     private Post post;
 
     @Column(nullable = false, unique = true)
