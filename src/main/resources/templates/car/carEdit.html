@@ -1,0 +1,45 @@
+<!--
+  ~ Copyright (c) 2023. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  ~ Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
+  ~ Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
+  ~ Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
+  ~ Vestibulum commodo. Ut rhoncus gravida arcu.
+  -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Редактирование автомобиля</h1>
+<form action="/car/edit" method="POST">
+    <input id="id" name="id" th:value="${car.id}" type="hidden">
+    <label for="name">Name:</label>
+    <input id="name" maxlength="50" minlength="2" name="name" required th:value="${car.name}" type="text"><br>
+    <label for="number">Number:</label>
+    <input id="number" maxlength="50" minlength="2" name="number" required th:value="${car.number}" type="text"><br>
+    <label for="brand">Brand:</label>
+    <input id="brand" maxlength="50" minlength="2" name="brand" required th:value="${car.brand}" type="text"><br>
+    <label for="birthday">Birthday:</label>
+    <input id="birthday" name="birthday" required th:value="${car.birthday}" type="datetime-local"><br>
+    <label for="carVINId">Car VIN Id:</label>
+    <input id="carVINId" maxlength="50" minlength="2" name="carVINId" required th:value="${car.carVINId}"
+           type="text"><br>
+    <label for="client">Client:</label>
+    <select class="form-control" id="client"
+            name="client"
+            th:object="${clients}"
+            th:selected="${car.client}">
+        <option value="">select Client</option>
+        <option th:each="client : ${clients}"
+                th:text="${client.name}"
+                th:value="${client.id}">
+        </option>
+    </select>
+    <br>
+    <input type="submit" value="Save">
+</form>
+</body>
+</html>

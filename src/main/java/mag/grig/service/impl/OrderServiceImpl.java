@@ -17,6 +17,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * The type Order service.
+ */
 @Service
 public class OrderServiceImpl implements OrderService {
 
@@ -27,6 +30,15 @@ public class OrderServiceImpl implements OrderService {
     private final ClientRepository clientRepository;
 
 
+    /**
+     * Instantiates a new Order service.
+     *
+     * @param userRepository   the user repository
+     * @param orderRepository  the order repository
+     * @param carRepository    the car repository
+     * @param postRepository   the post repository
+     * @param clientRepository the client repository
+     */
     public OrderServiceImpl(UserRepository userRepository, OrderRepository orderRepository,
                             CarRepository carRepository, PostRepository postRepository,
                             ClientRepository clientRepository) {

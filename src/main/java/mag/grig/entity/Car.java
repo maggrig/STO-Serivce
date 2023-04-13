@@ -15,7 +15,6 @@ import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
 
-import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -35,10 +34,10 @@ public class Car {
     private String name; // name of car
     private String number;// number of car
     private String brand;// brand of car
-    private Date birthday;// birthday of car
+    private String birthday;// birthday of car
     private Long carVINId; //VIN of car
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "client_id")
     @ToString.Exclude
     private Client client;

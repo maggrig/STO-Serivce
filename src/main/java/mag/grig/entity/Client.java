@@ -40,7 +40,7 @@ public class Client {
 
     private String password;
     @ToString.Exclude
-    @OneToMany(cascade = CascadeType.MERGE, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "car_id")
     private List<Car> cars;
 

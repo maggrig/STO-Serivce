@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cars</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            color: #4CAF50;
+        }
+
+        td,
+        th {
+            text-align: center;
+        }
+
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        /* Пример цвета фона для элементов с классом finished */
+        .finished {
+            background-color: #aaffaa;
+        }
+
+        /* Пример цвета фона для элементов с классом warning */
+        .warning {
+            background-color: #ffffaa;
+        }
+
+        /* Пример цвета фона для элементов с классом error */
+        .error {
+            background-color: #ffaaaa;
+        }
+    </style>
+</head>
+<body>
+<h2>Cars:</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Number</th>
+        <th>Brand</th>
+        <th>Birthday</th>
+        <th>VIN</th>
+        <th></th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="car : ${cars}">
+        <td th:text="${car.name}">Name</td>
+        <td th:text="${car.number}">Number</td>
+        <td th:text="${car.brand}">Brand</td>
+        <td th:text="${car.birthday}">Birthday</td>
+        <td th:text="${car.carVINId}">VIN</td>
+        <td><a th:href="@{'/car/edit/' + ${car.id}}">Edit</a></td>
+        <td><a th:href="@{'/car/delete/' + ${car.id}}">Delete</a></td>
+    </tr>
+    </tbody>
+</table>
+<a th:href="@{/car/create}">Add car</a>
+</body>
+</html>

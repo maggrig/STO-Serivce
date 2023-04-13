@@ -10,5 +10,5 @@ public interface RoleService {
 
     List<Role> findAllRoles();
 
- //  List<Role> findAll();
+    //  List<Role> findAll();
 }

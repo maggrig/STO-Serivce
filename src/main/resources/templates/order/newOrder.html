@@ -2,14 +2,53 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>New Order</title>
+    <title>Новый заказ</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            color: #4CAF50;
+        }
+
+        td,
+        th {
+            text-align: center;
+        }
+
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        /* Пример цвета фона для элементов с классом finished */
+        .finished {
+            background-color: #aaffaa;
+        }
+
+        /* Пример цвета фона для элементов с классом warning */
+        .warning {
+            background-color: #ffffaa;
+        }
+
+        /* Пример цвета фона для элементов с классом error */
+        .error {
+            background-color: #ffaaaa;
+        }
+    </style>
 </head>
 <body>
 <h1>Новый заказ</h1>
-<form method="post" th:action="@{/orders/save}" th:object="${orderDTO}">
+<form method="post" th:action="@{save}" th:object="${orderDTO}">
     <table>
         <tr>
-            <td><label for="carDTO">Car:</label></td>
+            <td><label for="carDTO">Автомобиль:</label></td>
             <td>
                 <select id="carDTO" name="carDTO" th:object="${carDTO}">
                     <option value="">--Выберете значение--</option>
@@ -20,7 +59,7 @@
             </td>
         </tr>
         <tr>
-            <td><label for="postDTO">Post:</label></td>
+            <td><label for="postDTO">Пост:</label></td>
             <td>
                 <select id="postDTO" name="postDTO" th:object="${postDTO}">
                     <option value="">--Выберете значение--</option>
@@ -31,7 +70,7 @@
             </td>
         </tr>
         <tr>
-            <td><label for="clientDTO">Client:</label></td>
+            <td><label for="clientDTO">Клиент:</label></td>
             <td>
                 <select id="clientDTO" name="clientDTO" th:object="${clientDTO}">
                     <option value="">--Выберете значение--</option>
@@ -42,7 +81,7 @@
             </td>
         </tr>
         <tr>
-            <td><label for="acceptor">Acceptor:</label></td>
+            <td><label for="acceptor">Приемщик:</label></td>
             <td>
                 <select id="acceptor" name="acceptor" th:object="${userDTO}">
                     <option value="">--Выберете значение--</option>
@@ -53,7 +92,7 @@
             </td>
         </tr>
         <tr>
-            <td><label for="executor">Executor:</label></td>
+            <td><label for="executor">Исполнитель:</label></td>
             <td>
                 <select id="executor" name="executor" th:object="${userDTO}">
                     <option value="">--Выберете значение--</option>
@@ -65,23 +104,23 @@
         </tr>
 
         <tr>
-            <td><label for="startDate">Start date:</label></td>
+            <td><label for="startDate">Время начала:</label></td>
             <td><input id="startDate" name="startDate" type="datetime-local"/></td>
         </tr>
         <tr>
-            <td><label for="endDate">End date:</label></td>
+            <td><label for="endDate">Время конца:</label></td>
             <td><input id="endDate" name="endDate" type="datetime-local"/></td>
         </tr>
         <tr>
-            <td><label for="finished">Finished:</label></td>
+            <td><label for="finished">Завершен:</label></td>
             <td><input id="finished" name="finished" type="checkbox"/></td>
         </tr>
         <tr>
-            <td><label for="warning">Warning:</label></td>
+            <td><label for="warning">С предупреждением:</label></td>
             <td><input id="warning" name="warning" type="checkbox"/></td>
         </tr>
         <tr>
-            <td><label for="error">Error:</label></td>
+            <td><label for="error">С ошибкой:</label></td>
             <td><input id="error" name="error" type="checkbox"/></td>
         </tr>
         <tr>

@@ -38,8 +38,8 @@ public class UserController {
     @GetMapping("/users/{userId}/delete")
     public String deleteUser(@PathVariable Long userId) {
 
-        userRoleRepository.deleteById(Long.valueOf(userId));
-        userRepository.deleteById(Long.valueOf(userId));
+        userRoleRepository.deleteById(userId);
+        userRepository.deleteById(userId);
         return "redirect:/users";
     }
 }

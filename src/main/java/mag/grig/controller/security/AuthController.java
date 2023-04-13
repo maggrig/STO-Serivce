@@ -11,7 +11,6 @@ import mag.grig.service.security.RoleService;
 import mag.grig.service.security.UserService;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,22 +18,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Controller
 public final class AuthController {
 
+    final
+    UserRepository userRepository;
     private final UserService userService;
     private final RoleService roleService;
-    @Autowired
-    UserRepository userRepository;
-    @Autowired
-    private RoleRepository roleRepository;
+    private final RoleRepository roleRepository;
 
-    public AuthController(UserService userService, RoleService roleService) {
+    public AuthController(UserService userService, RoleService roleService, UserRepository userRepository, RoleRepository roleRepository) {
         this.userService = userService;
         this.roleService = roleService;
+        this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
     }
 
     @Contract(pure = true)
@@ -75,7 +74,7 @@ public final class AuthController {
 
         User existing = userService.findByEmail(userDto.getEmail());
         String[] roles = roleDto.getRole().split(",");
-        String role = Arrays.asList(roleDto).get(0).getRole();
+        String role = List.of(roleDto).get(0).getRole();
         if (existing != null) {
             result.rejectValue("email", null, "There is already an account registered with that email");
         }

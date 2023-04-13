@@ -29,13 +29,13 @@ public class CustomUserDetailsService implements UserDetailsService {
         if (user != null) {
             return new org.springframework.security.core.userdetails.User(user.getEmail(),
                     user.getPassword(),
-                    mapRolesToAuthorities((Collection<Role>) user.getRoles()));
-        }else{
+                    mapRolesToAuthorities(user.getRoles()));
+        } else {
             throw new UsernameNotFoundException("Invalid username or password.");
         }
     }
 
-    private Collection < ? extends GrantedAuthority> mapRolesToAuthorities(Collection <Role> roles) {
+    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
         return roles.stream()
                 .map(role -> new SimpleGrantedAuthority(role.getRole()))
                 .collect(Collectors.toList());

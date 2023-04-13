@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
 //            role = checkRoleExist();
 //        }
 
-        user.setRoles(Arrays.asList(role));
+        user.setRoles(Collections.singletonList(role));
         userRepository.save(user);
     }
 

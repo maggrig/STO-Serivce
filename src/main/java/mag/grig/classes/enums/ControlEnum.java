@@ -20,11 +20,11 @@ public enum ControlEnum {
 
     private final int value;
 
-    public int getValue() {
-        return value;
-    }
-
     ControlEnum(int value) {
         this.value = value;
+    }
+
+    public int getValue() {
+        return value;
     }
 }

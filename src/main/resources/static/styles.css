@@ -1,0 +1,37 @@
+table {
+    border-collapse: collapse;
+    width: 100%;
+    color: #4CAF50;
+}
+
+td,
+th {
+    text-align: center;
+}
+
+td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+/* Пример цвета фона для элементов с классом finished */
+.finished {
+    background-color: #aaffaa;
+}
+
+/* Пример цвета фона для элементов с классом warning */
+.warning {
+    background-color: #ffffaa;
+}
+
+/* Пример цвета фона для элементов с классом error */
+.error {
+    background-color: #ffaaaa;
+}

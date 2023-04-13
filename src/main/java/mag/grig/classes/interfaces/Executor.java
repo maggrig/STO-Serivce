@@ -12,7 +12,7 @@ import java.util.Timer;
 
 public interface Executor {
     Control control = null;
-    int STATUS=0;
-    Timer TIMER=new Timer();
+    int STATUS = 0;
+    Timer TIMER = new Timer();
 
 }

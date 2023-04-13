@@ -23,8 +23,7 @@ public class MyErrorController implements ErrorController {
             }
             if (statusCode == 403) {
                 return "error403";
-            }
-            else if(statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
+            } else if (statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
                 return "error500";
             }
         }

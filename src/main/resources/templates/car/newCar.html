@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Создания нового автомобиля</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            color: #4CAF50;
+        }
+
+        td,
+        th {
+            text-align: center;
+        }
+
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        /* Пример цвета фона для элементов с классом finished */
+        .finished {
+            background-color: #aaffaa;
+        }
+
+        /* Пример цвета фона для элементов с классом warning */
+        .warning {
+            background-color: #ffffaa;
+        }
+
+        /* Пример цвета фона для элементов с классом error */
+        .error {
+            background-color: #ffaaaa;
+        }
+    </style>
+</head>
+<body>
+<h1>Создания нового автомобиля</h1>
+<form action="@{save}" method="POST" th:object="${clients}">
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+        </tr>
+        <tr>
+            <th>Name</th>
+        </tr>
+        <tr>
+            <th>Number</th>
+        </tr>
+        <tr>
+            <th>Brand</th>
+        </tr>
+        <tr>
+            <th>Birthday</th>
+        </tr>
+        <tr>
+            <th>VIN</th>
+        </tr>
+        <tr>
+            <th>Client ID</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><label for="carid">Название автомобиля:</label></td>
+            <td><input id="carid" name="carid" type="text"/></td>
+        </tr>
+        <tr>
+            <td><label for="numberid">Номер автомобиля:</label></td>
+            <td><input id="numberid" name="numberid" type="text"/></td>
+        </tr>
+        <tr>
+            <td><label for="brandid">Марка автомобиля:</label></td>
+            <td><input id="brandid" name="brandid" type="text"/></td>
+        </tr>
+        <tr>
+            <td><label for="birthdayid">Год создания автомобиля:</label></td>
+            <td><input id="birthdayid" name="birthdayid" type="text"/></td>
+        </tr>
+        <tr>
+            <td><label for="carVINId">VIN автомобиля:</label></td>
+            <td><input id="carVINId" name="carVINId" type="text"/></td>
+        </tr>
+        <!--            <td th:text="${car.getClient()}"></td>-->
+        </tbody>
+    </table>
+    <input type="submit" value="Create">
+</form>
+</body>
+</html>

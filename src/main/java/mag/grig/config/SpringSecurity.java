@@ -16,11 +16,14 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 public class SpringSecurity {
 
-    @Autowired
-    private UserDetailsService userDetailsService;
+    private final UserDetailsService userDetailsService;
+
+    public SpringSecurity(UserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
+    }
 
     @Bean
-    public static PasswordEncoder passwordEncoder(){
+    public static PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
@@ -28,14 +31,19 @@ public class SpringSecurity {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeHttpRequests((authorize) ->
-                        authorize.requestMatchers("/register/**").permitAll()
-                                .requestMatchers("/error").permitAll()
+                                authorize.requestMatchers("/register/**").permitAll()
+                                        .requestMatchers("/error").permitAll()
 //                                .requestMatchers("/orders").permitAll()
-                                .requestMatchers("/index").permitAll()
-                                .requestMatchers("/sw.js").permitAll()
-                                .requestMatchers("/**").permitAll()
-                                .requestMatchers("/orders").permitAll()
-                                .requestMatchers("/users").hasRole("ADMIN")
+                                        .requestMatchers("/index").permitAll()
+                                        .requestMatchers("/car").permitAll()
+                                        .requestMatchers("/post").permitAll()
+                                        .requestMatchers("/static").permitAll()
+                                        .requestMatchers("/sw.js").permitAll()
+                                        .requestMatchers("/**").permitAll()
+//                                .requestMatchers("/**.css").permitAll()
+//                                .requestMatchers("/order/*.css").permitAll()
+                                        .requestMatchers("/order/**").permitAll()
+                                        .requestMatchers("/user").hasRole("ADMIN")
                 ).formLogin(
                         form -> form
                                 .loginPage("/login")

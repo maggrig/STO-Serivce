@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Список заказов</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            color: #4CAF50;
+        }
+
+        td,
+        th {
+            text-align: center;
+        }
+
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        /* Пример цвета фона для элементов с классом finished */
+        .finished {
+            background-color: #aaffaa;
+        }
+
+        /* Пример цвета фона для элементов с классом warning */
+        .warning {
+            background-color: #ffffaa;
+        }
+
+        /* Пример цвета фона для элементов с классом error */
+        .error {
+            background-color: #ffaaaa;
+        }
+    </style>
+</head>
+<body>
+<h1>Список заказов</h1>
+<table class="table">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Автомобиль</th>
+    <th>Дата начала</th>
+    <th>Дата окончания</th>
+    <th>Статус</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="order : ${orders}">
+    <td th:text="${order.id}"></td>
+    <td th:text="${order.car.model}"></td>
+    <td th:text="${order.startDate}"></td>
+    <td th:text="${order.endDate}"></td>
+    <td>
+      <span style="color: green;" th:if="${order.finished}">Завершено</span>
+      <span style="color: orange;" th:if="${order.warning}">Предупреждение</span>
+      <span style="color: red;" th:if="${order.error}">Ошибка</span>
+    </td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>

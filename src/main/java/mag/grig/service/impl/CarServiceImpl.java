@@ -31,8 +31,26 @@ public class CarServiceImpl implements CarService {
         carRepository.save(car);
     }
 
+    /**
+     * @param id
+     * @return
+     */
+    @Override
+    public Car getCarById(Long id) {
+        return carRepository.findById(id).orElse(null);
+    }
+
+    /**
+     * @param id
+     * @return
+     */
+    @Override
+    public Optional<Car> findCarById(Long id) {
+        return carRepository.findById(id);
+    }
+
     public Optional<Car> findById(Long Id) {
-        return (Optional<Car>) carRepository.findById(Id);
+        return carRepository.findById(Id);
     }
 
 }
