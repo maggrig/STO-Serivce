@@ -3,8 +3,6 @@ package mag.grig.dto;
 import lombok.Data;
 import mag.grig.entity.Car;
 
-import java.util.Date;
-
 /**
  * A DTO for the {@link Car} entity
  */
@@ -14,6 +12,6 @@ public class CarDTO {
     private String name;
     private String number;
     private String brand;
-    private Date birthday;
+    private String birthday;
     private Long carVINId;
 }

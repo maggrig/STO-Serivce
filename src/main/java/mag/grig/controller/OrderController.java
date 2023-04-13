@@ -9,6 +9,7 @@ import mag.grig.repository.PostRepository;
 import mag.grig.repository.security.UserRepository;
 import mag.grig.service.CarService;
 import mag.grig.service.OrderService;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -113,4 +114,19 @@ public class OrderController {
         }
         return "redirect:order/orders" + Order.getId();
     }
+
+    @PostMapping("/delete")
+    public String showDeleteForm(@NotNull Model model) {
+//        List<Client> clients = clientRepository.findAll();
+//        model.addAttribute("clients", clients);
+        model.addAttribute("order", new Order());
+        return "order/orders";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteOrder(@PathVariable("id") Long id) {
+        orderRepository.deleteById(id);
+        return "redirect:/order/orders";
+    }
+
 }

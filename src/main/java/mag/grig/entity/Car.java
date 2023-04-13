@@ -15,6 +15,7 @@ import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
 
+import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -34,7 +35,8 @@ public class Car {
     private String name; // name of car
     private String number;// number of car
     private String brand;// brand of car
-    private String birthday;// birthday of car
+    @Temporal(TemporalType.DATE)
+    private Date birthday;// birthday of car
     private Long carVINId; //VIN of car
 
     @ManyToOne(cascade = CascadeType.ALL)
