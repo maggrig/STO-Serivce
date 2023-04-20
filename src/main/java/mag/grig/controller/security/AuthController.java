@@ -1,12 +1,9 @@
 package mag.grig.controller.security;
 
 import jakarta.validation.Valid;
-import mag.grig.dto.security.RoleDTO;
-import mag.grig.dto.security.UserDTO;
+import mag.grig.entity.dto.security.UserDTO;
 import mag.grig.entity.security.Role;
 import mag.grig.entity.security.User;
-import mag.grig.repository.security.RoleRepository;
-import mag.grig.repository.security.UserRepository;
 import mag.grig.service.security.RoleService;
 import mag.grig.service.security.UserService;
 import org.jetbrains.annotations.Contract;
@@ -22,18 +19,12 @@ import java.util.List;
 
 @Controller
 public final class AuthController {
-
-    final
-    UserRepository userRepository;
     private final UserService userService;
     private final RoleService roleService;
-    private final RoleRepository roleRepository;
 
-    public AuthController(UserService userService, RoleService roleService, UserRepository userRepository, RoleRepository roleRepository) {
+    public AuthController(UserService userService, RoleService roleService) {
         this.userService = userService;
         this.roleService = roleService;
-        this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
     }
 
     @Contract(pure = true)
@@ -68,23 +59,22 @@ public final class AuthController {
     // handler method to handle register user form submit request
     @PostMapping("/register/save")
     public @NotNull String registration(final @Valid @ModelAttribute("user") @NotNull UserDTO userDto,
-                                        final @Valid @ModelAttribute("role") @NotNull RoleDTO roleDto,
                                         final BindingResult result,
                                         final Model model) {
 
         User existing = userService.findByEmail(userDto.getEmail());
-        String[] roles = roleDto.getRole().split(",");
-        String role = List.of(roleDto).get(0).getRole();
+//        String[] role = userDto.getRoles().split(",");
+//        String role1 = List.of(roles).get(0).getRole();
         if (existing != null) {
             result.rejectValue("email", null, "There is already an account registered with that email");
         }
         if (result.hasErrors()) {
             model.addAttribute("user", userDto);
-            model.addAttribute("roles", roleDto);
+            model.addAttribute("roles", userDto.getRoles());
             model.addAttribute("errorMessage", "Registration failed. Please check the form for errors.");
             return "register";
         }
-        userService.saveUser(userDto, role);
+        userService.saveUser(userDto);
         return "redirect:/register?success";
     }
 }

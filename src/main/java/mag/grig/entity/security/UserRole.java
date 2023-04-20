@@ -18,9 +18,9 @@ import java.util.Objects;
 public class UserRole {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "user_id", nullable = false)
+    @Column(name = "user_id")
     private Long user_id;
-    @Column(name = "role_id", nullable = false)
+    @Column(name = "role_id")
     private Long role_id;
 
     @Override

@@ -1,26 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration status="OFF">
-    <appenders>
-        <Console name="Console" target="SYSTEM_OUT">
-            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %5p %t %-5l - %m%n"/>
-        </Console>
-        <!--
-            fileName: укажите расположение журнала и имя журнала.
-                         filePattern: укажите расположение и имя журнала резервного копирования.
-        -->
-        <RollingFile name="RollingFile" fileName="с:/logs/log4j2-xml.log"
-                     filePattern="с:/logs/log4j2-xml-$${date:yyyy-MM}/log4j2-xml-%d{yyyy-MM-dd}-%i.log.gz">
-            <!-- Формат данных журнала вывода -->
-            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %5p %t %-5l - %m%n"/>
-            <!-- Установите размер файла журнала, когда он превышает 5M, запускает операцию резервного копирования
-            журнала -->
-            <SizeBasedTriggeringPolicy size="5 MB"/>
+<Configuration status="ALL">
+    <Appenders>
+        <File name="File" fileName="LogfileName.log" immediateFlush="true" append="true">
+            <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </File>
+        <RollingFile name="Fileroll" fileName="output.log" immediateFlush="true" append="true"
+                     filePattern="logs/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
+            <PatternLayout>
+                <Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+            </Policies>
         </RollingFile>
-    </appenders>
-    <loggers>
-        <root level="trace">
-            <appender-ref ref="Console"/>
-            <appender-ref ref="RollingFile"/>
-        </root>
-    </loggers>
-</configuration>
+    </Appenders>
+    <Loggers>
+        <Logger name="mag.grig.*" level="all" additivity="false">
+            <AppenderRef ref="Fileroll"/>
+            <AppenderRef ref="File"/>
+        </Logger>
+        <Root level="all">
+            <AppenderRef ref="File"/>
+        </Root>
+
+    </Loggers>
+</Configuration>

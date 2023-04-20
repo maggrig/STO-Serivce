@@ -1,20 +1,18 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
 <head>
     <meta charset="UTF-8">
     <title>Список клиентов</title>
-    <link href="styles.css" rel="stylesheet" type="text/css">
-    <style>
-        body {
-            background-color: #198698FF;
-        }
-    </style>
+    <link rel="stylesheet" th:href="@{/CSS/styles.css}">
 </head>
 <body>
+<div th:insert="navbar :: navbar"></div>
 <h1>Список клиентов</h1>
 <table class="my-table">
     <thead>
-    <tr th:bgcolor="Green">
+    <tr>
         <th>ID</th>
         <th>Name</th>
         <th>Email</th>
@@ -22,18 +20,15 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:bgcolor="6499FF" th:each="client : ${clients}">
+    <tr th:each="client : ${clients}">
         <td th:text="${client.id}"></td>
         <td th:text="${client.name}"></td>
         <td th:text="${client.email}"></td>
-        <td>
-            <ul>
-                <li th:each="car : ${client.cars}" th:text="${car.name}"></li>
-            </ul>
-        </td>
     </tr>
     </tbody>
 </table>
-<a href="newClient.html">Создать нового клиента</a>
+<td>
+    <a th:href="@{/client/create/}">Добавить нового клиента</a>
+</td>
 </body>
 </html>

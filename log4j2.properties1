@@ -1,0 +1,32 @@
+#
+# Copyright (c) 2023. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+# Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
+# Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
+# Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
+# Vestibulum commodo. Ut rhoncus gravida arcu.
+#
+
+name=PropertiesConfig
+property.filename=classloading/menu-module/logs
+appenders=console, file
+
+appender.console.type=Console
+appender.console.name=STDOUT
+appender.console.layout.type=PatternLayout
+appender.console.layout.pattern=[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n
+
+appender.file.type=File
+appender.file.name=LOGFILE
+appender.file.fileName=${filename}/propertieslogs.log
+appender.file.layout.type=PatternLayout
+appender.file.layout.pattern=[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n
+
+rootLogger.level=info
+rootLogger.appenderRefs=stdout
+rootLogger.appenderRef.stdout.ref=STDOUT
+
+loggers=file
+logger.file.name=mag.grig.AOP.LoggingAspect
+logger.file.level=info
+logger.file.appenderRefs=file
+logger.file.appenderRef.file.ref=LOGFILE

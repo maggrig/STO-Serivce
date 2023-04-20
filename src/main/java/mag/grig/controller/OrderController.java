@@ -1,14 +1,12 @@
 package mag.grig.controller;
 
-import mag.grig.dto.OrderDTO;
-import mag.grig.entity.Client;
 import mag.grig.entity.Order;
-import mag.grig.repository.CarRepository;
-import mag.grig.repository.ClientRepository;
-import mag.grig.repository.PostRepository;
-import mag.grig.repository.security.UserRepository;
+import mag.grig.entity.dto.OrderDTO;
 import mag.grig.service.CarService;
+import mag.grig.service.ClientService;
 import mag.grig.service.OrderService;
+import mag.grig.service.PostService;
+import mag.grig.service.security.UserService;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,20 +23,22 @@ public class OrderController {
 
     private final OrderService orderService;
     private final CarService carService;
-    private final PostRepository postRepository;
-    private final ClientRepository clientRepository;
-    private final CarRepository carRepository;
-    private final UserRepository userRepository;
-    private final PostRepository orderRepository;
+    private final ClientService clientService;
+    private final PostService postService;
+    private final UserService userService;
 
-    public OrderController(OrderService orderService, CarService carService, PostRepository postRepository, ClientRepository clientRepository, CarRepository carRepository, UserRepository userRepository, PostRepository orderRepository) {
+
+    public OrderController(OrderService orderService,
+                           CarService carService,
+                           ClientService clientService,
+                           PostService postService,
+                           UserService userService
+    ) {
         this.orderService = orderService;
         this.carService = carService;
-        this.postRepository = postRepository;
-        this.clientRepository = clientRepository;
-        this.carRepository = carRepository;
-        this.userRepository = userRepository;
-        this.orderRepository = orderRepository;
+        this.clientService = clientService;
+        this.postService = postService;
+        this.userService = userService;
     }
 
     @PostMapping("/save")
@@ -55,31 +55,21 @@ public class OrderController {
             model.addAttribute("orderDTO", orderDTO);
             return "order/newOrder";
         }
-        orderDTO.setAcceptorId(acceptorId);
-        orderDTO.setClientId(clientId);
-        orderDTO.setCarId(carId);
-        orderDTO.setPostId(postId);
-        orderDTO.setExecutorId(executorId);
+        orderDTO.setClient(String.valueOf(clientId));
+        orderDTO.setCar(String.valueOf(carId));
+        orderDTO.setPost(String.valueOf(postId));
         orderService.saveOrder(orderDTO);
         return "redirect:/order/orders";
     }
 
     @GetMapping("/create")
     public String newOrderForm(Model model) {
-        Client client = new Client();
-        List<Client> clients = clientRepository.findAll();
-        client.setId(1L);
-        client.setName("Hartmann");
-        client.setEmail("angel.odom@example.com");
-        client.setCars(carRepository.findAll());
-        clients.add(0, client);
-        clientRepository.save(client);
-        model.addAttribute("clientDTO", clients);
-        model.addAttribute("postDTO", postRepository.findAll());
-        model.addAttribute("carDTO", carRepository.findAll());
-        model.addAttribute("userDTO", userRepository.findAll());
-        model.addAttribute("acceptor", userRepository.findAll());
-        model.addAttribute("executor", userRepository.findAll());
+        model.addAttribute("clientDTO", clientService.findAll());
+        model.addAttribute("postDTO", postService.findAll());
+        model.addAttribute("carDTO", carService.findAll());
+        model.addAttribute("userDTO", userService.findAll());
+        model.addAttribute("acceptor", userService.findAll());
+        model.addAttribute("executor", userService.findAll());
         model.addAttribute("orderDTO", new OrderDTO());
         return "order/newOrder";
     }
@@ -87,7 +77,13 @@ public class OrderController {
     @GetMapping("/orders")
     public String getOrders(Model model) {
         List<Order> orders = orderService.getAllOrders();
-        model.addAttribute("orders", orders);
+        model.addAttribute("orders", orderService.getOrderDTOs(orders));
+        model.addAttribute("clientDTO", clientService.findAll());
+        model.addAttribute("postDTO", postService.findAll());
+        model.addAttribute("carDTO", carService.findAll());
+        model.addAttribute("userDTO", userService.findAll());
+        model.addAttribute("acceptor", userService.findAll());
+        model.addAttribute("executor", userService.findAll());
         return "order/orders";
     }
 
@@ -99,20 +95,26 @@ public class OrderController {
     }
 
     @GetMapping("/edit/{id}")
-    public String editOrderForm(@PathVariable("id") Long id, Model model) {
-        Order Order = orderService.getOrderById(id);
-        model.addAttribute("Order", Order);
-        List<Client> clients = clientRepository.findAll();
-        model.addAttribute("clients", clients);
+    public String editOrderForm(//@ModelAttribute("orderDTO") OrderDTO orderDTO,
+                                @PathVariable("id") Long id,
+                                Model model) {
+
+        Order order = orderService.getOrderById(id);
+        model.addAttribute("orderDTO", orderService.convertOrderToOrderDTO(order));
         return "order/orderEdit";
     }
 
+    /*
+    public String addOrder(@ModelAttribute("orderDTO") @Valid OrderDTO orderDTO, BindingResult bindingResult, Model model) {
+     */
     @PostMapping("/edit")
-    public String editOrder(@ModelAttribute("Order") Order Order, BindingResult result) {
+    public String editOrder(@ModelAttribute("orderDTO") OrderDTO orderDTO, BindingResult result) throws ParseException {
         if (result.hasErrors()) {
             return "order/orders";
         }
-        return "redirect:order/orders" + Order.getId();
+        orderService.saveOrder(orderDTO);
+//        return "redirect:order/orders" + orderDTO.getId();
+        return "order/orders";
     }
 
     @PostMapping("/delete")
@@ -125,8 +127,18 @@ public class OrderController {
 
     @GetMapping("/delete/{id}")
     public String deleteOrder(@PathVariable("id") Long id) {
-        orderRepository.deleteById(id);
+        orderService.deleteById(id);
         return "redirect:/order/orders";
+    }
+
+    @GetMapping("/items")
+    public String showItems(Model model, @RequestParam(defaultValue = "id") String sortField,
+                            @RequestParam(defaultValue = "asc") String sortOrder) {
+        List<Order> orders = orderService.findAllSorted(sortField, sortOrder);
+        model.addAttribute("items", orders);
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortOrder", sortOrder);
+        return "items/index";
     }
 
 }

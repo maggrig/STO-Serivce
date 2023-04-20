@@ -5,8 +5,8 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import mag.grig.entity.security.User;
 import org.hibernate.Hibernate;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.Objects;
@@ -20,31 +20,17 @@ import java.util.Objects;
 @ToString
 @RequiredArgsConstructor
 @Table(name = "Orders")
+@Transactional
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
-    @ManyToOne
-    @JoinColumn(name = "car_id")
-    @ToString.Exclude
-    private Car car; //ссылка на car (entity/Car) (многие к одному)
-    @ManyToOne
-    @JoinColumn(name = "post_id")
-    @ToString.Exclude
-    private Post post; //ссылка на post (entity/Post) (многие к одному)
-    @ManyToOne
-    @JoinColumn(name = "client_id")
-    @ToString.Exclude
-    private Client client; //ссылка на client(entity/Client) (многие к одному)
-    @ManyToOne
-    @JoinColumn(name = "acceptor_id")
-    @ToString.Exclude
-    private User acceptor;//-ссылка на (entity/security/User) Приёмщик (многие к одному)
-    @ManyToOne
-    @JoinColumn(name = "executor_id")
-    @ToString.Exclude
-    private User executor;// ссылка на (entity/security/User) Исполнитель работ (многие к одному)
+    private Long car; //ссылка на car (entity/Car) (многие к одному)
+    private Long post; //ссылка на post (entity/Post) (многие к одному)
+    private Long client; //ссылка на client(entity/Client) (многие к одному)
+    private Long acceptor;//-ссылка на (entity/security/User) Приёмщик (многие к одному)
+    private Long executor;// ссылка на (entity/security/User) Исполнитель работ (многие к одному)
 
     @Temporal(TemporalType.DATE)
     private Date startDate;

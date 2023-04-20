@@ -1,8 +1,8 @@
 package mag.grig.security;
 
+import mag.grig.entity.repository.security.UserRepository;
 import mag.grig.entity.security.Role;
 import mag.grig.entity.security.User;
-import mag.grig.repository.security.UserRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -1,87 +1,53 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en"
+      xmlns="http://www.w3.org/1999/html"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <title>Orders</title>
-  <link href="styles.css" rel="stylesheet" type="text/css">
-  <link rel="stylesheet" th:href="@{static/styles.css}">
-  <style>
-    table {
-      border-collapse: collapse;
-      width: 100%;
-      color: #4CAF50;
-    }
-
-    td,
-    th {
-      text-align: center;
-    }
-
-    td {
-      border: 1px solid #ddd;
-      padding: 8px;
-    }
-
-    th {
-      background-color: #4CAF50;
-      color: white;
-      border: 1px solid #ddd;
-      padding: 8px;
-    }
-
-    /* Пример цвета фона для элементов с классом finished */
-    .finished {
-      background-color: #aaffaa;
-    }
-
-    /* Пример цвета фона для элементов с классом warning */
-    .warning {
-      background-color: #ffffaa;
-    }
-
-    /* Пример цвета фона для элементов с классом error */
-    .error {
-      background-color: #ffaaaa;
-    }
-  </style>
+  <!--  <link href="styles.css" rel="stylesheet" type="text/css">-->
+  <link rel="stylesheet" th:href="@{/CSS/styles.css}" type="text/css">
 </head>
 <body>
+<div th:insert="navbar :: navbar"></div>
 <h2>Список заказов</h2>
-<table>
-  <thead>
-  <tr>
-    <th>ID</th>
-    <th>Car</th>
-    <th>Post</th>
-    <th>Client</th>
-    <th>Acceptor</th>
-    <th>Executor</th>
-    <th>Start Date</th>
-    <th>End Date</th>
-    <th>Status</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr th:each="order : ${orders}">
-    <td th:text="${order.id}"></td>
-    <td th:text="${order.getCar().name} "></td>
-    <td th:text="${order.getPost().name}"></td>
-    <td th:text="${order.getClient().name}"></td>
-    <td th:text="${order.getAcceptor().last_Name}"></td>
-    <td th:text="${order.getExecutor().last_Name}"></td>
-    <td th:text="${order.startDate}"></td>
-    <td th:text="${order.endDate}"></td>
-    <td><a th:href="@{'/order/edit/' + ${order.id}}">Edit</a></td>
-    <td><a th:href="@{'/order/delete/' + ${order.id}}">Delete</a></td>
-    <td>
-      <!--      <label for="finished" > finished</label>-->
-      <span class="finished" th:if="${order.finished}">Finished</span>
-      <span class="warning" th:text="${order.warning}">Warning</span>
-      <span class="error" th:text="${order.error}">Error</span>
-    </td>
-  </tr>
-  </tbody>
-</table>
+<form id="orders" name="order">
+  <table>
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Car</th>
+      <th>Post</th>
+      <th>Client</th>
+      <th>Acceptor</th>
+      <th>Executor</th>
+      <th>Start Date</th>
+      <th>End Date</th>
+      <th>Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="order : ${orders}">
+      <td th:text="${order.id}"></td>
+      <td th:text="${order.getExecutor()} "></td>
+      <td th:text="${order.getPost()}"></td>
+      <td th:text="${order.getClient()}"></td>
+      <td th:text="${order.getAcceptor()}"></td>
+      <td th:text="${order.getExecutor()}"></td>
+      <td th:text="${order.startDate}"></td>
+      <td th:text="${order.endDate}"></td>
+      <td><a th:href="@{'/order/edit/' + ${order.id}}">Edit</a></td>
+      <td><a th:href="@{'/order/delete/' + ${order.id}}">Delete</a></td>
+      <td>
+        <!--      <label for="finished" > finished</label>-->
+        <span class="finished" th:text="${order.finished}">Finished</span>
+        <span class="warning" th:text="${order.warning}">Warning</span>
+        <span class="error" th:text="${order.error}">Error</span>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</form>
 <a href="create">Создать новый заказ</a>
 </body>
 </html>

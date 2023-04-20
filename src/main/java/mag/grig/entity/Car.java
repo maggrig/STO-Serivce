@@ -38,10 +38,9 @@ public class Car {
     @Temporal(TemporalType.DATE)
     private Date birthday;// birthday of car
     private Long carVINId; //VIN of car
-
-    @ManyToOne(cascade = CascadeType.ALL)
+    //    private Long client;
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id")
-    @ToString.Exclude
     private Client client;
 
     @Override

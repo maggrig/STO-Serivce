@@ -39,8 +39,9 @@ public class Client {
     private String email;
 
     private String password;
+
     @ToString.Exclude
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "car_id")
     private List<Car> cars;
 

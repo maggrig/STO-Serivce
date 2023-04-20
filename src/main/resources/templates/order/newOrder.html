@@ -1,49 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
 <head>
     <meta charset="UTF-8">
     <title>Новый заказ</title>
-    <style>
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            color: #4CAF50;
-        }
-
-        td,
-        th {
-            text-align: center;
-        }
-
-        td {
-            border: 1px solid #ddd;
-            padding: 8px;
-        }
-
-        th {
-            background-color: #4CAF50;
-            color: white;
-            border: 1px solid #ddd;
-            padding: 8px;
-        }
-
-        /* Пример цвета фона для элементов с классом finished */
-        .finished {
-            background-color: #aaffaa;
-        }
-
-        /* Пример цвета фона для элементов с классом warning */
-        .warning {
-            background-color: #ffffaa;
-        }
-
-        /* Пример цвета фона для элементов с классом error */
-        .error {
-            background-color: #ffaaaa;
-        }
-    </style>
+    <link rel="stylesheet" th:href="@{/CSS/styles.css}">
 </head>
 <body>
+<div th:insert="navbar :: navbar"></div>
 <h1>Новый заказ</h1>
 <form method="post" th:action="@{save}" th:object="${orderDTO}">
     <table>
@@ -57,6 +22,7 @@
                             th:value="${car.id}"></option>
                 </select>
             </td>
+            <td><a th:href="@{/car/create}">Добавить</a></td>
         </tr>
         <tr>
             <td><label for="postDTO">Пост:</label></td>
@@ -68,6 +34,7 @@
                             th:value="${post.id}"></option>
                 </select>
             </td>
+            <td><a th:href="@{/post/create/}">Добавить</a></td>
         </tr>
         <tr>
             <td><label for="clientDTO">Клиент:</label></td>
@@ -79,6 +46,7 @@
                             th:value="${client.id}"></option>
                 </select>
             </td>
+            <td><a th:href="@{/client/create/}">Добавить</a></td>
         </tr>
         <tr>
             <td><label for="acceptor">Приемщик:</label></td>
@@ -86,10 +54,11 @@
                 <select id="acceptor" name="acceptor" th:object="${userDTO}">
                     <option value="">--Выберете значение--</option>
                     <option th:each="user : ${userDTO}"
-                            th:text="${user.first_Name}"
+                            th:text="${user.firstName}"
                             th:value="${user.id}"></option>
                 </select>
             </td>
+            <td><a th:href="@{/user/create/}">Добавить</a></td>
         </tr>
         <tr>
             <td><label for="executor">Исполнитель:</label></td>
@@ -97,10 +66,11 @@
                 <select id="executor" name="executor" th:object="${userDTO}">
                     <option value="">--Выберете значение--</option>
                     <option th:each="user : ${userDTO}"
-                            th:text="${user.last_Name}"
+                            th:text="${user.lastName}"
                             th:value="${user.id}"></option>
                 </select>
             </td>
+            <td><a th:href="@{/user/create/}">Добавить</a></td>
         </tr>
 
         <tr>

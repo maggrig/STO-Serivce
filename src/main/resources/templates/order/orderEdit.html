@@ -1,18 +1,61 @@
-<!--
-  ~ Copyright (c) 2023. Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-  ~ Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan. 
-  ~ Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna. 
-  ~ Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus. 
-  ~ Vestibulum commodo. Ut rhoncus gravida arcu. 
-  -->
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Редактирование заказа</title>
+    <link rel="stylesheet" th:href="@{/CSS/styles.css}">
 </head>
 <body>
+<div th:insert="navbar :: navbar"></div>
+<form method="post" th:action="@{/order/edit}" th:object="${orderDTO}">
+    <input id="id" name="id" th:field="${orderDTO}" type="hidden"/>
+    <div th:text="${principal}">
+    </div>
+
+    <div class="form-group">
+        <label for="car">Car:</label>
+        <input class="form-control" id="car" th:field="${orderDTO.car}" type="text"/>
+    </div>
+    <div class="form-group">
+        <label for="post">Post:</label>
+        <input class="form-control" id="post" th:field="${orderDTO.post}" type="text"/>
+    </div>
+    <div class="form-group">
+        <label for="client">Client:</label>
+        <input class="form-control" id="client" th:field="${orderDTO.client}" type="text"/>
+    </div>
+    <div class="form-group">
+        <label for="acceptor">Acceptor:</label>
+        <input class="form-control" id="acceptor" th:field="${orderDTO.acceptor}" type="text"/>
+    </div>
+    <div class="form-group">
+        <label for="executor">Executor:</label>
+        <input class="form-control" id="executor" th:field="${orderDTO.executor}" type="text"/>
+    </div>
+    <div class="form-group">
+        <label for="startDate">Start Date:</label>
+        <input class="form-control" id="startDate" th:field="${orderDTO.startDate}" type="datetime-local"/>
+    </div>
+    <div class="form-group">
+        <label for="endDate">End Date:</label>
+        <input class="form-control" id="endDate" th:field="${orderDTO.endDate}" type="datetime-local"/>
+    </div>
+    <div class="form-group">
+        <label for="finished">Finished:</label>
+        <input class="form-control" id="finished" th:field="${orderDTO.finished}" type="checkbox"/>
+    </div>
+    <div class="form-group">
+        <label for="warning">Warning:</label>
+        <input class="form-control" id="warning" th:field="${orderDTO.warning}" type="checkbox"/>
+    </div>
+    <div class="form-group">
+        <label for="error">Error:</label>
+        <input class="form-control" id="error" th:field="${orderDTO.error}" type="checkbox"/>
+    </div>
+    <button class="btn btn-primary" type="submit">Save</button>
+</form>
 
 </body>
 </html>

@@ -1,18 +1,19 @@
 package mag.grig.service;
 
 import mag.grig.entity.Car;
+import mag.grig.entity.dto.CarDTO;
 
-import java.util.Optional;
+import java.util.List;
 
 public interface CarService {
 
-    void saveCar(String car);
+    void saveCar(CarDTO carDTO);
 
-    void saveCar(Car car);
+    void deleteById(Long id);
 
-    Car getCarById(Long id);
+    List<Car> findAll();
 
-    Optional<Car> findCarById(Long id);
+    Car findById(Long id);
 //    Car findById(Car Id);
 
 }

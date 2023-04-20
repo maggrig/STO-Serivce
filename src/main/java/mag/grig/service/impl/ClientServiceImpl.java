@@ -9,7 +9,7 @@
 package mag.grig.service.impl;
 
 import mag.grig.entity.Client;
-import mag.grig.repository.ClientRepository;
+import mag.grig.entity.repository.ClientRepository;
 import mag.grig.service.ClientService;
 import org.springframework.stereotype.Service;
 
@@ -33,15 +33,6 @@ public class ClientServiceImpl implements ClientService {
     }
 
     /**
-     * @param Id
-     * @return
-     */
-    @Override
-    public Client getClientById(Long Id) {
-        return clientRepository.findById(Id).orElse(null);
-    }
-
-    /**
      * @return
      */
     @Override
@@ -55,5 +46,26 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public void saveClient(Client client) {
         clientRepository.save(client);
+    }
+
+    /**
+     * @return
+     */
+    @Override
+    public List<Client> findAll() {
+        return clientRepository.findAll();
+    }
+
+    @Override
+    public Client findById(Long id) {
+        return clientRepository.findById(id).orElse(null);
+    }
+
+    /**
+     * @param name
+     * @return
+     */
+    public Long findIdByName(String name) {
+        return clientRepository.findByName(name).getId();
     }
 }

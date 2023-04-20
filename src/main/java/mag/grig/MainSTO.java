@@ -7,12 +7,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
 @SpringBootApplication
-public class RegistrationLoginDemoApplication {
-    private static final Logger logger = LogManager.getLogger(RegistrationLoginDemoApplication.class);
+public class MainSTO {
+    private static final Logger logger = LogManager.getLogger(MainSTO.class);
 
     public static void main(String[] args) {
         logger.info("Starting registration");
-        SpringApplication.run(RegistrationLoginDemoApplication.class, args);
+        SpringApplication.run(MainSTO.class, args);
 
     }
 
