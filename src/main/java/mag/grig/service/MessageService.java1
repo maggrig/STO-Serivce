@@ -1,0 +1,63 @@
+/*
+ * Copyright (c) 2023. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+ * Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
+ * Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
+ * Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
+ * Vestibulum commodo. Ut rhoncus gravida arcu.
+ */
+
+package mag.grig.service;
+
+import jakarta.annotation.PostConstruct;
+import mag.grig.classes.OrderObject;
+import mag.grig.entity.Order;
+import mag.grig.entity.repository.OrderRepository;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.apache.kafka.clients.consumer.ConsumerRecords;
+import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.stereotype.Service;
+
+import java.time.Duration;
+import java.util.Arrays;
+import java.util.Properties;
+import java.util.concurrent.Executors;
+
+@Service
+public class MessageService {
+    @Autowired
+    private KafkaTemplate<String, String> kafkaTemplate;
+    @Autowired
+    private OrderRepository messageRepository;
+
+    private final String topic = "messages";
+    private final String groupId = "group_id";
+
+    public void sendMessage(String message) {
+        kafkaTemplate.send(topic, message);
+    }
+
+    @PostConstruct
+    public void consume() {
+        Properties props = new Properties();
+        props.put("bootstrap.servers", "localhost:9092");
+        props.put("group.id", groupId);
+        props.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
+        props.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
+
+        KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props);
+        consumer.subscribe(Arrays.asList(topic));
+
+        Executors.newSingleThreadExecutor().execute(() -> {
+            while (true) {
+                ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(100));
+                for (ConsumerRecord<String, String> record : records) {
+                    Order msg = new Order();
+                    msg.setId(Long.valueOf(record.value()));
+                    messageRepository.save(msg);
+                }
+            }
+        });
+    }
+}

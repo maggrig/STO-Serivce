@@ -40,6 +40,7 @@ public class SpringSecurity {
                                         .requestMatchers("/static/**").authenticated()
                                         .requestMatchers("/sw.js").permitAll()
                                         .requestMatchers("/**").permitAll()
+                                        .requestMatchers("/users/**").authenticated()
 //                                .requestMatchers("/**.css").permitAll()
 //                                .requestMatchers("/order/*.css").permitAll()
                                         .requestMatchers("/order/**").authenticated()

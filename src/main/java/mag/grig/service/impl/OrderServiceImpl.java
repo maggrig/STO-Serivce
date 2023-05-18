@@ -169,4 +169,12 @@ public class OrderServiceImpl implements OrderService {
     public void merge(Order order) throws ParseException {
         orderRepository.save(order);
     }
+
+    /**
+     * @return
+     */
+    @Override
+    public Order getById(Long id) {
+        return orderRepository.getById(id);
+    }
 }

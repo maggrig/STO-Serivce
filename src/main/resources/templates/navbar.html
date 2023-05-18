@@ -8,26 +8,44 @@
 
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" th:href="@{/CSS/navbar.css}">
 <head>
     <meta charset="UTF-8">
     <title>NavigationBar</title>
 
 </head>
 <body>
-
-<nav class="navbar navbar-expand-md bg-dark navbar-dark" th:fragment="navbar">
+<!--<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" th:fragment="header">-->
+<!--    <div class="container-fluid">-->
+<!--        <a class="navbar-brand" th:href="@{/}">Регистрация и вход</a>-->
+<!--        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
+<!--            <span class="navbar-toggler-icon"></span>-->
+<!--        </button>-->
+<!--    </div>-->
+<!--</nav>-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" th:fragment="navbar">
     <div class="container-fluid">
         <div class="navbar-header">
             <a class="navbar-brand" th:href="@{/}">Система управления СТО</a>
         </div>
         <ul class="nav navbar-nav">
+            <li><a class="nav-link" th:href="@{/register}">Регистрация</a></li>
             <li><a class="nav-link" th:href="@{/login}">Вход</a></li>
             <li><a class="nav-link" th:href="@{/users}">Пользователи</a></li>
             <li><a class="nav-link" th:href="@{/order/orders}">Заказы</a></li>
-            <li><a class="nav-link" th:href="@{/car/cars}">Машины</a></li>
-            <li><a class="nav-link" th:href="@{/post/posts}">Посты</a></li>
-            <li><a class="nav-link" th:href="@{/client/clients}">Клиенты</a></li>
-            <li><a class="nav-link" th:href="@{/autoParts/}">Зап. части</a></li>
+            <li class="nav-link">
+                <a class="services" href="/">Разное</a>
+                <ul class="dropdown">
+                    <li><a th:href="@{/car/cars}">Машины </a></li>
+                    <li><a th:href="@{/post/posts}">Посты</a></li>
+                    <li><a th:href="@{/client/clients}">Клиенты</a></li>
+                    <li><a th:href="@{/autoParts/}">Зап. части</a></li>
+                </ul>
+            </li>
+            <!--            <li><a class="nav-link" th:href="@{/car/cars}">Машины</a></li>-->
+            <!--            <li><a class="nav-link" th:href="@{/post/posts}">Посты</a></li>-->
+            <!--            <li><a class="nav-link" th:href="@{/client/clients}">Клиенты</a></li>-->
+            <!--            <li><a class="nav-link" th:href="@{/autoParts/}">Зап. части</a></li>-->
             <li><a class="nav-link" th:href="@{/logout}">Выход</a></li>
         </ul>
     </div>

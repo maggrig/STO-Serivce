@@ -10,17 +10,20 @@
 </head>
 <body>
 <div th:insert="navbar :: navbar"></div>
-<h2>Список заказов</h2>
-<form id="orders" name="order">
-  <table>
-    <thead>
-    <tr>
-      <th>ID</th>
-      <th>Car</th>
-      <th>Post</th>
-      <th>Client</th>
-      <th>Acceptor</th>
-      <th>Executor</th>
+<div class="container">
+    <div class="row">
+
+        <h2>Список заказов</h2>
+        <form id="orders" name="order">
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Car</th>
+                    <th>Post</th>
+                    <th>Client</th>
+                    <th>Acceptor</th>
+                    <th>Executor</th>
       <th>Start Date</th>
       <th>End Date</th>
       <th>Status</th>
@@ -39,15 +42,19 @@
       <td><a th:href="@{'/order/edit/' + ${order.id}}">Edit</a></td>
       <td><a th:href="@{'/order/delete/' + ${order.id}}">Delete</a></td>
       <td>
-        <!--      <label for="finished" > finished</label>-->
-        <span class="finished" th:text="${order.finished}">Finished</span>
-        <span class="warning" th:text="${order.warning}">Warning</span>
-        <span class="error" th:text="${order.error}">Error</span>
+          <!--      <label for="finished" > finished</label>-->
+          <span class="finished" th:text="${order.finished}">Finished</span>
+          <span class="warning" th:text="${order.warning}">Warning</span>
+          <span class="error" th:text="${order.error}">Error</span>
       </td>
     </tr>
     </tbody>
-  </table>
-</form>
-<a href="create">Создать новый заказ</a>
+            </table>
+        </form>
+        <a href="create">Создать новый заказ</a>
+    </div>
+    >
+</div>
+>
 </body>
 </html>

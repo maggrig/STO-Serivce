@@ -8,7 +8,7 @@
     <link rel="stylesheet" th:href="@{/CSS/styles.css}">
 </head>
 <body>
-<div th:insert="navbar :: navbar"></div>
+<div th:insert="navbar::navbar"></div>
 <form method="post" th:action="@{/order/edit}" th:object="${orderDTO}">
     <input id="id" name="id" th:field="${orderDTO}" type="hidden"/>
     <div th:text="${principal}">

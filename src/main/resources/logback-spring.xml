@@ -17,7 +17,7 @@
             <charset>${FILE_LOG_CHARSET}</charset>
         </encoder>
 
-        <file>${LOG}/my-log-file.log</file>
+        <file>${LOG}\\my-log-file.log</file>
 
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <fileNamePattern>${LOG}/archived/my-log-file-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
@@ -32,7 +32,7 @@
         <appender-ref ref="CONSOLE"/>
     </root>
 
-    <logger name="my-logger-name" level="error">
+    <logger name="my-logger-name" level="info">
         <appender-ref ref="ROLLING_FILE"/>
     </logger>
 

@@ -26,4 +26,6 @@ public interface OrderService {
     List<Order> findAllSorted(String sortField, String sortOrder);
 
     void merge(Order order) throws ParseException;
+
+    Order getById(Long id);
 }

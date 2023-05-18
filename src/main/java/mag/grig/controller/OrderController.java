@@ -8,6 +8,7 @@ import mag.grig.service.OrderService;
 import mag.grig.service.PostService;
 import mag.grig.service.security.UserService;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -74,6 +75,7 @@ public class OrderController {
         return "order/newOrder";
     }
 
+    @PreAuthorize("hasAuthority('ROLE_USER')")
     @GetMapping("/orders")
     public String getOrders(Model model) {
         List<Order> orders = orderService.getAllOrders();
@@ -87,6 +89,7 @@ public class OrderController {
         return "order/orders";
     }
 
+    @PreAuthorize("hasAuthority('ROLE_USER')")
     @GetMapping("/orders/{orderId}")
     public String getOrderDetails(@PathVariable Long orderId, Model model) {
         Order order = orderService.getOrderById(orderId);
@@ -94,6 +97,7 @@ public class OrderController {
         return "order/orderDetails";
     }
 
+    @PreAuthorize("hasAuthority('ROLE_USER')")
     @GetMapping("/edit/{id}")
     public String editOrderForm(//@ModelAttribute("orderDTO") OrderDTO orderDTO,
                                 @PathVariable("id") Long id,
